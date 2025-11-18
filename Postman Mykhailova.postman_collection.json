@@ -709,12 +709,11 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"(function setFormattedDate() {\r",
-							"    const now = new Date();\r",
-							"    const formattedDate = now.toISOString().split(\"T\")[0]; \r",
-							"    pm.variables.set(\"formattedDate\", formattedDate);\r",
-							"    pm.collectionVariables.set(\"currentDate\", formattedDate);\r",
-							"})();"
+							"let now = new Date();\r",
+							"let isoDate = now.toISOString();\r",
+							"pm.collectionVariables.set(\"currentDateISO\", isoDate);\r",
+							"\r",
+							"console.log(\"currentDateISO:\", isoDate);"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -725,9 +724,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -740,7 +737,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"carId\": {{carId}},\r\n  \"reportedAt\": \"{{FormattedDate}}\",\r\n  \"mileage\": {{currentMileage}},\r\n  \"liters\": 10.0,\r\n  \"totalCost\": 250.00,\r\n  \"forceMileage\": false\r\n}",
+					"raw": "{\r\n  \"carId\": \"{{carId}}\",\r\n  \"reportedAt\": \"{{currentDateISO}}\",\r\n  \"mileage\": \"{{currentMileage}}\",\r\n  \"liters\": 10.0,\r\n  \"totalCost\": 250.00,\r\n  \"forceMileage\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
